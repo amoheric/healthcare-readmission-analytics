@@ -31,3 +31,6 @@ models/*.joblib
 # Raw source data
 # Download separately from the UCI Machine Learning Repository
 data/raw/*
+# Generated data artifacts
+data/interim/
+data/processed/

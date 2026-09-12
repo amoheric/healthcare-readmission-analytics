@@ -1,0 +1,19 @@
+{
+  "selected_model": "Random forest",
+  "selected_model_object": "random_forest",
+  "selected_threshold": 0.44,
+  "threshold_selection_partition": "validation",
+  "target_validation_sensitivity": 0.7,
+  "operating_objective": "validation sensitivity >= 0.70",
+  "probability_reference_model": "Standard logistic regression",
+  "test_used_for_model_selection": false,
+  "n_transformed_features": 213,
+  "random_forest_test_roc_auc": 0.6491030321575415,
+  "random_forest_test_average_precision": 0.20285486776137554,
+  "random_forest_test_brier_score": 0.22408442086433747,
+  "random_forest_test_sensitivity": 0.7303571428571428,
+  "random_forest_test_specificity": 0.4628849988920895,
+  "standard_logistic_test_roc_auc": 0.6451251499196325,
+  "standard_logistic_test_average_precision": 0.2028902555268885,
+  "standard_logistic_test_brier_score": 0.09474093007851382
+}

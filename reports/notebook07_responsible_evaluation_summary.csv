@@ -1,0 +1,17 @@
+domain,result,estimate,interpretation
+Group-aware discrimination,ROC-AUC,0.6439287167254634,Moderate discrimination under patient-separated OOF evaluation.
+Group-aware ranking,Average precision,0.19837483428236902,Ranking performance exceeds outcome prevalence but remains modest.
+Probability accuracy,Brier score,0.09605910989250677,OOF probability error remained stable under patient-aware evaluation.
+Calibration,Expected calibration error,0.0040560005262376035,Small aggregate OOF calibration error.
+Calibration,Calibration intercept,-0.11012147389591329,Small systematic calibration deviation from the ideal value of 0.
+Calibration,Calibration slope,0.9408569765951885,"Close to the ideal value of 1, indicating only mild overdispersion."
+Screening operating point,Locked threshold,0.095,Development-stage screening threshold targeting approximately 70% sensitivity.
+Screening operating point,Sensitivity,0.7011470497054872,Approximately 70% of development readmissions identified.
+Screening operating point,Specificity,0.4920775334981137,Approximately half of non-readmissions screened negative.
+Screening burden,Predicted-positive rate,0.5295273088610812,Approximately 53% of development encounters would trigger screening.
+Gender robustness,ROC-AUC difference,0.0028,Female minus Male discrimination difference was small; bootstrap CI included zero.
+Gender robustness,Sensitivity difference,0.0201,Female encounters showed modestly higher sensitivity at the common threshold.
+Race robustness,Sensitivity difference,0.0029,AfricanAmerican minus Caucasian sensitivity difference was small; bootstrap CI included zero.
+Race robustness,FPR difference,-0.0257,AfricanAmerican encounters had a modestly lower false-positive rate.
+Age robustness,ROC-AUC difference,-0.1136,70+ encounters showed substantially poorer discrimination than ages 20-49.
+Age robustness,FPR difference,0.2066,70+ encounters experienced substantially greater false-positive burden.

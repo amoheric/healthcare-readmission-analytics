@@ -1,0 +1,115 @@
+{
+  "notebook": "07_model_validation.ipynb",
+  "evaluation_boundary": {
+    "development_partitions": [
+      "train",
+      "validation"
+    ],
+    "held_out_test_loaded": false,
+    "patient_grouping_variable": "patient_nbr",
+    "cv_strategy": "StratifiedGroupKFold",
+    "cv_folds": 5
+  },
+  "development_cohort": {
+    "encounters": 86547,
+    "unique_patients": 60790,
+    "positive_prevalence": 0.1118120789859845
+  },
+  "feature_contract": {
+    "raw_model_features": 44,
+    "engineered_features_added": 8,
+    "final_model_features": 48,
+    "numeric_features": 13,
+    "categorical_features": 35,
+    "rare_category_min_count": 100,
+    "fold_local_preprocessing": true
+  },
+  "locked_hgb_configuration": {
+    "learning_rate": 0.03,
+    "max_iter": 400,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 40,
+    "l2_regularization": 2.0,
+    "random_state": 42,
+    "early_stopping": false
+  },
+  "pooled_oof_performance": {
+    "roc_auc": 0.6439287167254634,
+    "average_precision": 0.19837483428236902,
+    "brier_score": 0.09605910989250677
+  },
+  "patient_bootstrap": {
+    "replicates": 1000,
+    "sampling_unit": "patient_nbr",
+    "random_state": 42,
+    "roc_auc_ci_95": [
+      0.6377,
+      0.6503
+    ],
+    "average_precision_ci_95": [
+      0.1894,
+      0.2084
+    ],
+    "brier_score_ci_95": [
+      0.0944,
+      0.0979
+    ],
+    "interpretation": "Sampling uncertainty for fixed out-of-fold predictions; does not include model-refitting variability."
+  },
+  "calibration": {
+    "expected_calibration_error": 0.0040560005262376035,
+    "maximum_calibration_error": 0.01022,
+    "calibration_intercept": -0.11012147389591329,
+    "calibration_slope": 0.9408569765951885,
+    "posthoc_calibration_added": false
+  },
+  "development_screening_threshold": {
+    "threshold": 0.095,
+    "sensitivity": 0.7011470497054872,
+    "specificity": 0.4920775334981137,
+    "predicted_positive_rate": 0.5295273088610812,
+    "externally_validated": false
+  },
+  "fairness_analysis": {
+    "analysis_type": "descriptive subgroup robustness",
+    "threshold_shared_across_groups": true,
+    "subgroup_specific_thresholds": false,
+    "bootstrap_sampling_unit": "patient_nbr",
+    "primary_contrasts": {
+      "gender": "Female - Male",
+      "race": "AfricanAmerican - Caucasian",
+      "adult_age": "70+ - 20-49"
+    },
+    "primary_age_findings": {
+      "roc_auc_difference": -0.1136,
+      "roc_auc_ci_95": [
+        -0.135,
+        -0.0914
+      ],
+      "sensitivity_difference": 0.0211,
+      "sensitivity_ci_95": [
+        -0.0109,
+        0.0558
+      ],
+      "false_positive_rate_difference": 0.2066,
+      "false_positive_rate_ci_95": [
+        0.1932,
+        0.2202
+      ],
+      "predicted_positive_rate_difference": 0.1862,
+      "predicted_positive_rate_ci_95": [
+        0.1716,
+        0.2013
+      ]
+    }
+  },
+  "interpretation": {
+    "performance_characterization": "stable but moderate discrimination",
+    "calibration_characterization": "strong aggregate development calibration",
+    "principal_robustness_limitation": "age-related heterogeneity in discrimination and false-positive burden",
+    "clinical_deployment_ready": false,
+    "causal_claims": false,
+    "independent_generalization_claim": false,
+    "reason": "The HGB model family and hyperparameters were historically selected using the same development cohort."
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "random_forest": {
+    "candidate": 3,
+    "parameters": {
+      "n_estimators": 500,
+      "max_depth": 12,
+      "min_samples_leaf": 4,
+      "max_features": "sqrt",
+      "class_weight": "balanced"
+    },
+    "validation_threshold": 0.43,
+    "independent_test_evaluated": true,
+    "test_performance": {
+      "model": "Optimized random forest",
+      "candidate": 3,
+      "threshold": 0.43,
+      "roc_auc": 0.649448990394592,
+      "average_precision": 0.2033396030825496,
+      "brier_score": 0.21879581387372515,
+      "balanced_accuracy": 0.5941990334799996,
+      "precision": 0.14189794091316024,
+      "sensitivity": 0.7547619047619047,
+      "specificity": 0.4336361621980944,
+      "f1": 0.23888470233609646,
+      "tn": 5871,
+      "fp": 7668,
+      "fn": 412,
+      "tp": 1268
+    }
+  },
+  "histogram_gradient_boosting": {
+    "candidate": 3,
+    "parameters": {
+      "learning_rate": 0.03,
+      "max_iter": 400,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 2.0
+    },
+    "development_threshold": 0.08900000000000001,
+    "validation_performance": {
+      "roc_auc": 0.6342595753951608,
+      "average_precision": 0.19067513259595711,
+      "brier_score": 0.09534351457775374,
+      "sensitivity": 0.7397342995169082,
+      "specificity": 0.4400568394286142,
+      "precision": 0.14061065197428835,
+      "balanced_accuracy": 0.5898955694727612,
+      "f1": 0.23630401234567902
+    },
+    "independent_test_evaluated": false,
+    "status": "preferred_development_model"
+  }
+}

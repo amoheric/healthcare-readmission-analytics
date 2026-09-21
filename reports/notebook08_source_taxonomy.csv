@@ -1,0 +1,49 @@
+source_feature,source_type,transformed_columns,feature_origin,feature_family
+medical_specialty,categorical,25,source,Encounter characteristics
+diag_2_family,categorical,19,engineered,Diagnosis family
+diag_3_family,categorical,19,engineered,Diagnosis family
+diag_1_family,categorical,17,engineered,Diagnosis family
+payer_code,categorical,14,source,Encounter characteristics
+admission_source_description,categorical,10,source,Encounter characteristics
+age,categorical,10,source,Demographics
+admission_type_description,categorical,7,source,Encounter characteristics
+race,categorical,6,source,Demographics
+A1Cresult,categorical,4,source,Laboratory / glycemic
+glimepiride,categorical,4,source,Diabetes medication
+glipizide,categorical,4,source,Diabetes medication
+glyburide,categorical,4,source,Diabetes medication
+insulin,categorical,4,source,Diabetes medication
+max_glu_serum,categorical,4,source,Laboratory / glycemic
+metformin,categorical,4,source,Diabetes medication
+pioglitazone,categorical,4,source,Diabetes medication
+rosiglitazone,categorical,4,source,Diabetes medication
+acarbose,categorical,3,source,Diabetes medication
+gender,categorical,3,source,Demographics
+glyburide-metformin,categorical,3,source,Diabetes medication
+nateglinide,categorical,3,source,Diabetes medication
+repaglinide,categorical,3,source,Diabetes medication
+change,categorical,2,source,Medication management
+chlorpropamide,categorical,2,source,Diabetes medication
+diabetesMed,categorical,2,source,Medication management
+glimepiride-pioglitazone,categorical,2,source,Diabetes medication
+glipizide-metformin,categorical,2,source,Diabetes medication
+metformin-rosiglitazone,categorical,2,source,Diabetes medication
+miglitol,categorical,2,source,Diabetes medication
+tolazamide,categorical,2,source,Diabetes medication
+tolbutamide,categorical,2,source,Diabetes medication
+troglitazone,categorical,2,source,Diabetes medication
+acetohexamide,categorical,1,source,Diabetes medication
+log1p_number_emergency,numeric,1,engineered,Prior utilization
+log1p_number_inpatient,numeric,1,engineered,Prior utilization
+log1p_number_outpatient,numeric,1,engineered,Prior utilization
+log1p_prior_utilization_total,numeric,1,engineered,Prior utilization
+metformin-pioglitazone,categorical,1,source,Diabetes medication
+num_lab_procedures,numeric,1,source,Clinical complexity
+num_medications,numeric,1,source,Clinical complexity
+num_procedures,numeric,1,source,Clinical complexity
+number_diagnoses,numeric,1,source,Clinical complexity
+number_emergency,numeric,1,source,Prior utilization
+number_inpatient,numeric,1,source,Prior utilization
+number_outpatient,numeric,1,source,Prior utilization
+prior_utilization_total,numeric,1,engineered,Prior utilization
+time_in_hospital,numeric,1,source,Encounter characteristics

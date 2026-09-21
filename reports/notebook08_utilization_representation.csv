@@ -1,0 +1,9 @@
+source_feature,feature_origin,feature_family,roc_auc_importance_mean,roc_auc_importance_std,ap_importance_mean,representation_type,representation_definition,roc_effectively_zero,ap_effectively_zero
+number_inpatient,source,Prior utilization,0.049160875960194986,0.0013960521618398413,0.05033769360285095,source,raw inpatient count,False,False
+log1p_number_inpatient,engineered,Prior utilization,0.0,0.0,0.0,engineered,log1p(number_inpatient),True,True
+number_outpatient,source,Prior utilization,0.0013009760108851243,0.0005138055293056891,0.0019106333404674907,source,raw outpatient count,False,False
+log1p_number_outpatient,engineered,Prior utilization,0.0,0.0,0.0,engineered,log1p(number_outpatient),True,True
+number_emergency,source,Prior utilization,0.0001796058381448473,0.00047502291597342826,-0.0003287914333187758,source,raw emergency count,False,False
+log1p_number_emergency,engineered,Prior utilization,0.0,0.0,0.0,engineered,log1p(number_emergency),True,True
+prior_utilization_total,engineered,Prior utilization,0.005011309536067754,0.0013647541343185232,0.007462085125594204,engineered,sum of outpatient + emergency + inpatient,False,False
+log1p_prior_utilization_total,engineered,Prior utilization,0.0,0.0,0.0,engineered,log1p(prior_utilization_total),True,True

@@ -1,0 +1,7 @@
+analysis_name,group_name,roc_auc_importance_mean,roc_auc_importance_std,ap_importance_mean
+all_utilization_representations,Prior utilization — all representations,0.07339562836436334,0.00399143402555019,0.06249504076624133
+raw_utilization_counts,Prior utilization — raw counts,0.05031547201619185,0.004529188432492649,0.050541095253743964
+inpatient_raw_plus_log,Inpatient utilization — raw + log,0.047723044717513506,0.005054164273769173,0.049506991586569
+total_utilization_raw_plus_log,Total utilization — raw + log,0.005291103357652227,0.001243706301148905,0.008391099880108258
+outpatient_raw_plus_log,Outpatient utilization — raw + log,0.0011983357160947118,0.0003782488317549662,0.0017496040880357027
+emergency_raw_plus_log,Emergency utilization — raw + log,-7.054346832527925e-05,0.0003733393350679023,-0.0005977473618425683

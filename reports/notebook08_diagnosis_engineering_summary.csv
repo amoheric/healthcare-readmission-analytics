@@ -1,0 +1,4 @@
+source_feature,diagnosis_position,roc_auc_importance_mean,roc_auc_importance_std,ap_importance_mean,roc_rank_within_diagnosis,ap_rank_within_diagnosis,range_all_profiled,range_support_ge_100,range_support_ge_500,range_retained_ge_100,range_retained_ge_500,categorical_profile_available
+diag_1_family,primary,0.011278243129824861,0.0016282617419196895,0.009882773669744988,1,1,0.021905973447334248,0.021905973447334248,0.021905973447334248,1.0,1.0,True
+diag_2_family,secondary,0.003564427774146639,0.0012924943689951599,0.005280640752924323,2,2,0.034268446364648764,0.034268446364648764,0.00873680321910969,1.0,0.25495183312782316,True
+diag_3_family,tertiary,0.0012464245029529474,0.0011472360593547623,0.00255860726828423,3,3,,,,,,False

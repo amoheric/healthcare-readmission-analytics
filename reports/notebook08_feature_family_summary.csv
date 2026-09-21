@@ -1,0 +1,9 @@
+feature_family,source_features,transformed_features,engineered_features
+Diabetes medication,21,58,0
+Encounter characteristics,5,57,0
+Diagnosis family,3,55,3
+Demographics,3,19,0
+Prior utilization,8,8,5
+Laboratory / glycemic,2,8,0
+Clinical complexity,4,4,0
+Medication management,2,4,0

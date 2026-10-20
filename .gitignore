@@ -34,3 +34,15 @@ data/raw/*
 # Generated data artifacts
 data/interim/
 data/processed/
+
+# SQL audit and QA artifacts
+sql/*_qa.sql
+sql/*_qa_*.sql
+sql/*_release_candidate.sql
+sql/*.bak
+
+# Local encounter-level model predictions
+reports/notebook07_oof_predictions.csv
+
+# Temporary dependency validation file
+requirements-portable-candidate.txt

@@ -1,0 +1,11 @@
+age_group,total_encounters,readmitted_30d_encounters,readmission_rate_pct,volume_flag
+[0-10),135,3,2.22,Sufficient volume
+[10-20),588,37,6.29,Sufficient volume
+[20-30),1431,216,15.09,Sufficient volume
+[30-40),3224,370,11.48,Sufficient volume
+[40-50),8294,886,10.68,Sufficient volume
+[50-60),14555,1361,9.35,Sufficient volume
+[60-70),19095,2128,11.14,Sufficient volume
+[70-80),22197,2617,11.79,Sufficient volume
+[80-90),14610,1776,12.16,Sufficient volume
+[90-100),2418,283,11.70,Sufficient volume

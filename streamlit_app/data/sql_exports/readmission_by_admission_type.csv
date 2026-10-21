@@ -1,0 +1,9 @@
+admission_type_description,total_encounters,readmitted_30d_encounters,readmission_rate_pct
+Emergency,46008,5319,11.56
+Elective,15909,1666,10.47
+Urgent,15626,1737,11.12
+Unknown,4573,496,10.85
+Not Available,4129,431,10.44
+Not Mapped,273,27,9.89
+Trauma Center,19,0,0.00
+Newborn,10,1,10.00

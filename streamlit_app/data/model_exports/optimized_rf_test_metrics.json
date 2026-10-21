@@ -1,0 +1,32 @@
+{
+  "model": "Optimized Random Forest",
+  "source_notebook": "06_model_optimization.ipynb",
+  "source_artifact": "notebook06_optimization_metadata.json",
+  "evaluation_type": "Held-out test",
+  "model_candidate": 3,
+  "threshold_selection": "Validation partition",
+  "threshold": 0.43,
+  "test_encounters": 15219,
+  "metrics": {
+    "roc_auc": 0.649448990394592,
+    "average_precision": 0.2033396030825496,
+    "brier_score": 0.21879581387372515,
+    "balanced_accuracy": 0.5941990334799996,
+    "precision": 0.14189794091316024,
+    "sensitivity": 0.7547619047619047,
+    "specificity": 0.4336361621980944,
+    "f1": 0.23888470233609646
+  },
+  "confusion_matrix": {
+    "tn": 5871,
+    "fp": 7668,
+    "fn": 412,
+    "tp": 1268
+  },
+  "limitations": [
+    "Research evaluation only.",
+    "Not externally or clinically validated.",
+    "Threshold selected before held-out test evaluation.",
+    "Encounter-level predictions are not included."
+  ]
+}

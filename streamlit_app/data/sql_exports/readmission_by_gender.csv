@@ -1,0 +1,4 @@
+gender,total_encounters,readmitted_30d_encounters,readmission_rate_pct,volume_flag
+Female,46440,5204,11.21,Sufficient volume
+Male,40106,4473,11.15,Sufficient volume
+Unknown/Invalid,1,0,0.00,Small sample

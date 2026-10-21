@@ -580,6 +580,74 @@ The dashboard reporting logic remains separated from the machine-learning workfl
 
 ---
 
+## Interactive Streamlit Dashboard
+
+**Status: Implemented and locally validated; public deployment pending.**
+
+The project includes a five-page interactive research dashboard built
+with Streamlit, Altair, and pandas. It presents validated descriptive
+analytics and retrospective machine-learning evaluation results.
+
+The application is designed for research communication and portfolio
+demonstration. It is not a clinical decision-support system.
+
+### Dashboard Pages
+
+| Page | Analytical Content |
+|---|---|
+| Executive Overview | Development-cohort KPIs and 30-day readmission outcome distribution |
+| Patient Demographics | Historical readmission patterns by age, gender, and race |
+| Healthcare Utilization | Admission types, length of stay, prior utilization, and data completeness |
+| Predictive Modeling | Optimized Random Forest performance on the independent held-out test partition |
+| Model Evaluation | Patient-grouped HGB out-of-fold evaluation, calibration, bootstrap uncertainty, and subgroup robustness |
+
+### Reporting Architecture
+
+The public dashboard reads approved aggregate CSV and JSON reports
+stored in `streamlit_app/data/`.
+
+Descriptive reporting data is derived from the PostgreSQL reporting
+views and represents the 86,547-encounter development cohort.
+
+The application does not require a live PostgreSQL connection.
+
+Raw encounter datasets, patient identifiers, individual prediction
+records, trained model binaries, and database credentials are not
+required to run the Streamlit dashboard.
+
+### Model Evaluation Boundaries
+
+The Random Forest results come from an independent held-out test
+partition after configuration and threshold selection on development
+data.
+
+The Histogram Gradient Boosting results come from patient-grouped
+out-of-fold validation within the development cohort. The model
+family and hyperparameters were previously selected using that
+cohort, so these are not fully independent generalization estimates.
+
+Subgroup comparisons and bootstrap intervals describe retrospective
+research findings. They do not establish causal effects or clinical
+fairness.
+
+### Validation Status
+
+All five pages have passed local execution checks, and the primary
+interactive selectors have passed 29 automated regression cases.
+
+The application has also passed an external-working-directory launch
+test and dependency-resolution checks for a specified Linux/Python
+3.13 target.
+
+A clean Linux runtime test, final publication review, and public
+Streamlit Community Cloud deployment remain pending.
+
+See `streamlit_app/DATA_CONTRACT.md` and
+`streamlit_app/HGB_EVALUATION_CONTRACT.md` for detailed data and
+evaluation requirements.
+
+---
+
 ## Technology Stack
 
 ### Programming & Analysis
@@ -622,6 +690,15 @@ The dashboard reporting logic remains separated from the machine-learning workfl
 
 - Power BI
 - PostgreSQL reporting layer
+
+### Interactive Analytics & Visualization
+
+- Streamlit 1.66
+- Altair 6.3
+- pandas 3.0
+- Interactive analytical dashboards
+- Validated aggregate CSV/JSON reporting
+- Streamlit Community Cloud (deployment pending)
 
 ### Development
 
@@ -674,6 +751,22 @@ healthcare-readmission-analytics/
 │   ├── 04_build_model_dataset.sql
 │   └── 05_reporting_views.sql
 │
+├── streamlit_app/
+│   ├── Executive_Overview.py
+│   ├── pages/
+│   │   ├── 1_Patient_Demographics.py
+│   │   ├── 2_Healthcare_Utilization.py
+│   │   ├── 3_Predictive_Modeling.py
+│   │   └── 4_Model_Evaluation.py
+│   ├── utils/
+│   │   └── data_loader.py
+│   ├── data/
+│   │   ├── sql_exports/
+│   │   └── model_exports/
+│   ├── DATA_CONTRACT.md
+│   ├── HGB_EVALUATION_CONTRACT.md
+│   └── requirements.txt
+│
 ├── src/
 │
 ├── .gitignore
@@ -703,6 +796,32 @@ The notebooks are intentionally maintained as a canonical sequence:
 ```
 
 Temporary execution copies, checkpoints, backups, and audit helper scripts are not part of the canonical notebook sequence.
+
+### Streamlit Dashboard - Local Reproduction
+
+The Streamlit dashboard uses its own dependency file: `streamlit_app/requirements.txt`. It runs independently of the full research environment and does not require a live PostgreSQL connection or local encounter-level data.
+
+**Windows PowerShell (from repository root):**
+
+```powershell
+python -m venv .venv-streamlit
+.\.venv-streamlit\Scripts\Activate.ps1
+python -m pip install -r streamlit_app/requirements.txt
+python -m streamlit run streamlit_app/Executive_Overview.py
+```
+
+**Linux/macOS (from repository root):**
+
+```bash
+python3 -m venv .venv-streamlit
+source .venv-streamlit/bin/activate
+python -m pip install -r streamlit_app/requirements.txt
+python -m streamlit run streamlit_app/Executive_Overview.py
+```
+
+The application reads approved aggregate CSV and JSON reports from `streamlit_app/data/`. The root `requirements.txt` remains dedicated to the research workflow. Dependency resolution was verified for Windows and a specified Linux x86-64/Python 3.13 target; clean Linux execution and public deployment remain pending.
+
+---
 
 ### PostgreSQL and Power BI Reproducibility
 
@@ -848,6 +967,26 @@ The most important methodological takeaway is that **model performance must be i
 | PostgreSQL reporting views | Complete |
 | README / portfolio documentation | Complete |
 | Power BI dashboard | Complete |
+
+---
+
+## Dataset Attribution & License
+
+This project uses the **Diabetes 130-US Hospitals for Years 1999–2008** dataset from the UCI Machine Learning Repository.
+
+**Dataset citation:** Clore, J., Cios, K., DeShazo, J., & Strack, B. (2014). *Diabetes 130-US Hospitals for Years 1999–2008* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5230J
+
+**License:** Creative Commons Attribution 4.0 International (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+
+The original dataset contains 101,766 historical hospital encounters. This project applies preprocessing, feature engineering, partitioning, statistical analysis, and modeling to the source data. The public descriptive dashboard reports aggregate findings from the 86,547-encounter development cohort.
+
+The dashboard also presents separately identified model-evaluation reports. Random Forest results originate from an independent held-out test partition, whereas Histogram Gradient Boosting results represent patient-grouped out-of-fold development validation.
+
+This is an independent educational and professional portfolio project. The original dataset creators and UCI are credited; neither is represented as endorsing this analysis.
+
+The dashboard is intended for retrospective research communication, not clinical decision-making.
+
+For additional provenance, reporting restrictions, and publication safeguards, see `streamlit_app/DATA_CONTRACT.md`.
 
 ---
 

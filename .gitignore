@@ -46,3 +46,14 @@ reports/notebook07_oof_predictions.csv
 
 # Temporary dependency validation file
 requirements-portable-candidate.txt
+
+# Streamlit local secrets and credentials
+.streamlit/secrets.toml
+.streamlit/secrets.*.toml
+
+# Streamlit development agent skills (local environment links)
+.agents/skills/developing-with-streamlit
+.claude/skills/developing-with-streamlit
+
+# Protect Streamlit secrets in nested application directories
+**/.streamlit/secrets*.toml

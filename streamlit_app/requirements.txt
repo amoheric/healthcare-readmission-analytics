@@ -1,0 +1,8 @@
+# Healthcare Readmission Analytics
+# Streamlit dashboard deployment dependencies
+# Tested locally with Python 3.13
+
+streamlit==1.66.0
+pandas==3.0.5
+altair==6.3.0
+numpy==2.5.4

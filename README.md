@@ -12,6 +12,73 @@ The project combines data auditing, preprocessing, exploratory analysis, feature
 
 ---
 
+## Portfolio Showcase
+
+**Python | SQL | PostgreSQL | Machine Learning | Power BI | Streamlit**
+
+An end-to-end healthcare analytics platform combining
+reproducible data processing, relational reporting,
+business intelligence, predictive modeling, and
+responsible machine-learning evaluation.
+
+### Explore the Project
+
+- **[Launch the Live Streamlit Dashboard](https://healthcare-readmission-analytics-i3gcjyhxok3hynnwe7trda.streamlit.app)**
+- [Power BI Executive Dashboard](docs/screenshots/power_bi_dashboard.png)
+- [Streamlit Executive Overview](docs/screenshots/executive_overview.png)
+- [Patient Demographics](docs/screenshots/patient_demographics.png)
+- [Healthcare Utilization](docs/screenshots/healthcare_utilization.png)
+- [Predictive Modeling](docs/screenshots/predictive_modeling.png)
+- [Model Evaluation](docs/screenshots/model_evaluation.png)
+
+### Project Highlights
+
+| Component | Achievement |
+|---|---|
+| Source dataset | 101,766 historical hospital encounters |
+| Development reporting cohort | 86,547 encounters |
+| Observed 30-day readmission rate | 11.18% |
+| Database | PostgreSQL analytical and reporting schemas |
+| Business intelligence | Power BI executive dashboard |
+| Interactive analytics | Five-page Streamlit application |
+| Independent held-out evaluation | Optimized Random Forest ROC-AUC: 0.6494 |
+| Patient-aware development validation | Histogram Gradient Boosting OOF ROC-AUC: 0.6439 |
+| Research evaluation | Calibration, uncertainty, interpretability, and subgroup robustness |
+
+**Evaluation boundary:** The Random Forest result comes from
+the independent held-out test partition. The Histogram Gradient
+Boosting result comes from patient-grouped development validation
+and is not an independent held-out test estimate.
+
+### Power BI — Executive Dashboard
+
+The Power BI report presents descriptive healthcare analytics
+derived from reusable PostgreSQL reporting views.
+
+![Power BI executive healthcare dashboard](docs/screenshots/power_bi_dashboard.png)
+
+### Streamlit — Interactive Research Dashboard
+
+The deployed Streamlit application provides five pages covering
+executive KPIs, patient demographics, healthcare utilization,
+predictive modeling, and responsible model evaluation.
+
+<img src="docs/screenshots/executive_overview.png"
+     alt="Streamlit healthcare readmission executive overview"
+     width="650">
+
+**Additional dashboard previews:**
+[Demographics](docs/screenshots/patient_demographics.png) ·
+[Healthcare Utilization](docs/screenshots/healthcare_utilization.png) ·
+[Predictive Modeling](docs/screenshots/predictive_modeling.png) ·
+[Model Evaluation](docs/screenshots/model_evaluation.png)
+
+All descriptive results are based on historical data.
+The dashboards are research and portfolio demonstrations,
+not clinical decision-support tools.
+
+---
+
 ## Problem & Objective
 
 Hospital readmissions are an important operational and healthcare-quality concern.
@@ -974,6 +1041,8 @@ The most important methodological takeaway is that **model performance must be i
 | PostgreSQL reporting views | Complete |
 | README / portfolio documentation | Complete |
 | Power BI dashboard | Complete |
+| Streamlit interactive dashboard | Complete — deployed and verified |
+| Portfolio screenshots | Complete — six validated screenshots |
 
 ---
 

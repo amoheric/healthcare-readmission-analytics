@@ -178,7 +178,8 @@ with los_tab:
             tooltip=[
                 alt.Tooltip(
                     "length_of_stay_days:Q",
-                    title="Days",
+                    title="Hospital length of stay (days)",
+                    format="d",
                 ),
                 alt.Tooltip(
                     "total_encounters:Q",
@@ -200,7 +201,50 @@ with los_tab:
         .properties(height=350)
     )
 
-    st.altair_chart(los_chart, width="stretch")
+    # Enable nearest-point hover inspection across the chart.
+    nearest_los = alt.selection_point(
+        nearest=True,
+        on="pointerover",
+        fields=["length_of_stay_days"],
+        empty=False,
+    )
+
+    los_hover = (
+        alt.Chart(length_of_stay)
+        .mark_point(opacity=0)
+        .encode(
+            x="length_of_stay_days:Q",
+            y="readmission_rate_pct:Q",
+            tooltip=[
+                alt.Tooltip(
+                    "length_of_stay_days:Q",
+                    title="Hospital length of stay (days)",
+                    format="d",
+                ),
+                alt.Tooltip(
+                    "total_encounters:Q",
+                    title="Encounters",
+                    format=",",
+                ),
+                alt.Tooltip(
+                    "readmitted_30d_encounters:Q",
+                    title="Readmissions",
+                    format=",",
+                ),
+                alt.Tooltip(
+                    "readmission_rate_pct:Q",
+                    title="Readmission rate (%)",
+                    format=".2f",
+                ),
+            ],
+        )
+        .add_params(nearest_los)
+    )
+
+    st.altair_chart(
+        los_chart + los_hover,
+        width="stretch",
+    )
 
     st.dataframe(
         length_of_stay.rename(

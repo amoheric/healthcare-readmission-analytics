@@ -1,5 +1,6 @@
 """Healthcare Readmission Analytics — Interactive Research Dashboard."""
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 
@@ -58,7 +59,7 @@ readmission_rate = float(row["readmission_rate_pct"])
 
 st.subheader("Executive Overview")
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 
 with col1:
     st.metric(
@@ -71,6 +72,8 @@ with col2:
         label="Readmitted Within 30 Days",
         value=f"{readmitted:,}",
     )
+
+col3, col4 = st.columns(2)
 
 with col3:
     st.metric(
@@ -106,13 +109,37 @@ outcome_data = pd.DataFrame(
     }
 )
 
-st.bar_chart(
-    outcome_data,
-    x="Outcome",
-    y="Encounters",
-    horizontal=True,
-    sort=False,
+outcome_chart = (
+    alt.Chart(outcome_data)
+    .mark_bar()
+    .encode(
+        x=alt.X(
+            "Encounters:Q",
+            title="Hospital encounters",
+            axis=alt.Axis(format=",d"),
+        ),
+        y=alt.Y(
+            "Outcome:N",
+            title=None,
+            sort=[
+                "Readmitted within 30 days",
+                "Other encounters",
+            ],
+            axis=alt.Axis(labelLimit=280),
+        ),
+        tooltip=[
+            alt.Tooltip("Outcome:N", title="Readmission outcome"),
+            alt.Tooltip(
+                "Encounters:Q",
+                title="Hospital encounters",
+                format=",d",
+            ),
+        ],
+    )
+    .properties(height=160)
 )
+
+st.altair_chart(outcome_chart, width="stretch")
 
 st.caption(
     "Counts represent hospital encounters, not unique patients. "

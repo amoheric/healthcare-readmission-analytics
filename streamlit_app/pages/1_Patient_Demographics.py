@@ -135,16 +135,16 @@ def show_demographic_analysis(
         width="stretch",
         column_config={
             "Category": st.column_config.TextColumn(
-                "Category", width="medium"
+                "Category", width="small"
             ),
             "Encounters": st.column_config.NumberColumn(
-                "Encounters", format="%d"
+                "Encounters", format="%d", width="small"
             ),
             "Readmissions": st.column_config.NumberColumn(
-                "Readmissions", format="%d"
+                "Readmissions", format="%d", width="small"
             ),
             "Rate (%)": st.column_config.NumberColumn(
-                "Rate (%)", format="%.2f"
+                "Rate (%)", format="%.2f", width="small"
             ),
             "SQL Volume Flag": st.column_config.TextColumn(
                 "SQL Volume Flag", width="medium"

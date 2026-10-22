@@ -1,5 +1,9 @@
 # Healthcare Readmission Analytics
 
+### Live Interactive Dashboard
+
+**[Launch the Healthcare Readmission Analytics Dashboard](https://healthcare-readmission-analytics-i3gcjyhxok3hynnwe7trda.streamlit.app)**
+
 An end-to-end healthcare analytics and machine-learning project using the UCI Diabetes 130-US Hospitals for Years 1999–2008 dataset to investigate 30-day hospital readmission risk.
 
 The project combines data auditing, preprocessing, exploratory analysis, feature engineering, predictive modeling, patient-aware validation, model interpretability, PostgreSQL analytics, and BI reporting.
@@ -582,7 +586,9 @@ The dashboard reporting logic remains separated from the machine-learning workfl
 
 ## Interactive Streamlit Dashboard
 
-**Status: Implemented and locally validated; public deployment pending.**
+**Status: Deployed on Streamlit Community Cloud; five-page cloud functional validation completed.**
+
+**Live application:** [Open interactive dashboard](https://healthcare-readmission-analytics-i3gcjyhxok3hynnwe7trda.streamlit.app)
 
 The project includes a five-page interactive research dashboard built
 with Streamlit, Altair, and pandas. It presents validated descriptive
@@ -639,8 +645,9 @@ The application has also passed an external-working-directory launch
 test and dependency-resolution checks for a specified Linux/Python
 3.13 target.
 
-A clean Linux runtime test, final publication review, and public
-Streamlit Community Cloud deployment remain pending.
+The application has been deployed successfully on Streamlit Community Cloud using Python 3.13. All five pages rendered during cloud validation, and the tested interactive selectors and supporting tables updated without errors.
+
+A separate clean Linux runtime reproduction has not been performed. Cloud validation does not establish clinical suitability, prospective performance, or comprehensive production readiness. Publication screening was preliminary and does not constitute formal privacy certification.
 
 See `streamlit_app/DATA_CONTRACT.md` and
 `streamlit_app/HGB_EVALUATION_CONTRACT.md` for detailed data and
@@ -698,7 +705,7 @@ evaluation requirements.
 - pandas 3.0
 - Interactive analytical dashboards
 - Validated aggregate CSV/JSON reporting
-- Streamlit Community Cloud (deployment pending)
+- Streamlit Community Cloud (deployed)
 
 ### Development
 
@@ -819,7 +826,7 @@ python -m pip install -r streamlit_app/requirements.txt
 python -m streamlit run streamlit_app/Executive_Overview.py
 ```
 
-The application reads approved aggregate CSV and JSON reports from `streamlit_app/data/`. The root `requirements.txt` remains dedicated to the research workflow. Dependency resolution was verified for Windows and a specified Linux x86-64/Python 3.13 target; clean Linux execution and public deployment remain pending.
+The application reads approved aggregate CSV and JSON reports from `streamlit_app/data/`. The root `requirements.txt` remains dedicated to the research workflow. Dependency resolution was verified for Windows and a specified Linux x86-64/Python 3.13 target. The application was successfully deployed and functionally checked on Streamlit Community Cloud using Python 3.13; a separate clean Linux runtime reproduction has not been performed.
 
 ---
 

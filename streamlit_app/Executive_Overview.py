@@ -29,7 +29,7 @@ st.markdown(
 st.caption(
     "Historical UCI Diabetes 130-US Hospitals dataset (1999–2008). "
     "Descriptive statistics represent the training and validation "
-    "development cohort, not the independent test partition."
+    "development cohort, not the patient-disjoint held-out test partition."
 )
 
 st.divider()

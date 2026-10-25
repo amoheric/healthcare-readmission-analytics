@@ -97,7 +97,7 @@ The project focuses on:
 - Investigating patterns associated with 30-day readmission
 - Establishing a baseline predictive model
 - Optimizing and comparing candidate models
-- Evaluating performance using a locked held-out test partition
+- Evaluating performance on a patient-disjoint held-out test partition with documented baseline reuse
 - Performing patient-aware out-of-fold validation
 - Examining model robustness across demographic groups
 - Interpreting model behavior and feature contributions
@@ -346,7 +346,7 @@ in the quality of the model's probability estimates.
 
 Histogram Gradient Boosting was subsequently investigated as a development-stage candidate.
 
-Its evaluation is intentionally described differently from the optimized Random Forest because the analysis occurred after the original locked held-out test evaluation.
+Its evaluation is reported separately because it uses patient-grouped out-of-fold development validation, not a new independent test evaluation.
 
 The model was evaluated using patient-aware out-of-fold validation.
 

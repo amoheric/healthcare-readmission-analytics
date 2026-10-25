@@ -13,9 +13,7 @@ st.set_page_config(
 )
 
 st.title("Predictive Modeling")
-st.caption(
-    "Optimized Random Forest | Independent held-out test evaluation"
-)
+st.caption("Optimized Random Forest | Patient-disjoint held-out test evaluation")
 
 st.info(
     "This page reports retrospective research results. "
@@ -33,6 +31,16 @@ st.write(
     "The Random Forest configuration was selected using development "
     "data. Its classification threshold was locked using the "
     "validation partition before evaluation on the held-out test set."
+)
+
+st.warning(
+    "Evaluation-history note: Notebook 05 evaluated baseline models "
+    "on the held-out test partition before Notebook 06 evaluated the "
+    "optimized Random Forest on that same partition. The test patients "
+    "were separate from development patients, but the test set was "
+    "not strictly untouched or single-use. Interpret these results "
+    "as retrospective held-out performance, not an independent "
+    "external validation."
 )
 
 st.caption(

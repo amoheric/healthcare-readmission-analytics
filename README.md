@@ -41,14 +41,19 @@ responsible machine-learning evaluation.
 | Database | PostgreSQL analytical and reporting schemas |
 | Business intelligence | Power BI executive dashboard |
 | Interactive analytics | Five-page Streamlit application |
-| Independent held-out evaluation | Optimized Random Forest ROC-AUC: 0.6494 |
+| Patient-disjoint held-out evaluation | Optimized Random Forest ROC-AUC: 0.6494 |
 | Patient-aware development validation | Histogram Gradient Boosting OOF ROC-AUC: 0.6439 |
 | Research evaluation | Calibration, uncertainty, interpretability, and subgroup robustness |
 
-**Evaluation boundary:** The Random Forest result comes from
-the independent held-out test partition. The Histogram Gradient
-Boosting result comes from patient-grouped development validation
-and is not an independent held-out test estimate.
+**Evaluation boundary:** The optimized Random Forest was evaluated on a
+patient-disjoint held-out test partition. However, baseline models had
+previously been evaluated on that same test partition, so the optimized
+model's result should not be interpreted as a strictly untouched,
+single-use estimate of generalization performance.
+
+Histogram Gradient Boosting was evaluated using patient-grouped
+out-of-fold validation within the development cohort, not an
+independent held-out test.
 
 ### Power BI — Executive Dashboard
 
@@ -159,7 +164,7 @@ PostgreSQL 18
 
 The project uses the UCI **Diabetes 130-US Hospitals for Years 1999–2008** dataset.
 
-The modeling workflow separates development data from an independent held-out test partition.
+The modeling workflow separates development data from a patient-disjoint held-out test partition.
 
 The development cohort contains:
 
@@ -186,12 +191,23 @@ Development data
     ├── patient-aware validation
     └── interpretability
 
-Held-out test data
-    │
-    └── independent evaluation of the selected optimized model
+Held-out test partition (patient-disjoint from development)
+    |
+    +-- Notebook 05: baseline model evaluation
+    |
+    +-- Notebook 06: optimized Random Forest evaluation
 ```
 
-The later Histogram Gradient Boosting analysis is therefore reported as **development-stage patient-aware validation evidence**, rather than as a new independent held-out test result.
+The test partition was separated from model training and
+development-stage validation by patient. However, baseline results
+from Notebook 05 were available before the optimized Random Forest
+was evaluated in Notebook 06.
+
+This constitutes documented test-set reuse rather than a strictly
+single-use final evaluation.
+
+The later Histogram Gradient Boosting analysis is reported separately
+as development-stage patient-grouped out-of-fold evidence.
 
 ---
 
@@ -266,7 +282,7 @@ Feature engineering was performed before model optimization and validation so th
 
 A baseline modeling stage establishes an initial performance reference before optimization.
 
-The baseline workflow evaluates candidate approaches using the development data and ultimately evaluates the baseline model on the independent held-out test partition.
+The baseline workflow evaluates candidate approaches using the development data and subsequently evaluates baseline models on the patient-disjoint held-out test partition.
 
 The baseline provides a reference point for determining whether subsequent optimization produces meaningful improvement.
 
@@ -283,7 +299,7 @@ The workflow includes:
 - Probability-quality assessment
 - Threshold analysis
 - Final model selection
-- Independent held-out test evaluation
+- Patient-disjoint held-out test evaluation
 
 The optimization process does not treat the highest single metric as sufficient evidence of model quality.
 
@@ -293,9 +309,9 @@ Instead, model selection considers the intended screening objective and multiple
 
 ## Final Model Results
 
-### Optimized Random Forest — Independent Held-Out Test
+### Optimized Random Forest — Patient-Disjoint Held-Out Test
 
-The optimized Random Forest was selected for the original independent held-out test evaluation.
+The optimized Random Forest was selected using development data and subsequently evaluated on the patient-disjoint held-out test partition, which had previously been used for baseline model evaluation.
 
 | Metric | Result |
 |---|---:|
@@ -308,7 +324,21 @@ The optimized Random Forest was selected for the original independent held-out t
 
 The selected threshold reflects a screening-oriented operating objective rather than an assumption that the default 0.50 probability threshold is always optimal.
 
-The held-out test evaluation provides the independent generalization estimate for this selected optimized Random Forest.
+The optimized Random Forest achieved ROC-AUC 0.6494 and average
+precision 0.2033 on the patient-disjoint held-out test partition.
+
+Although its configuration and operating threshold were selected
+using development data, the same test partition had previously
+been used for baseline model evaluation.
+
+Accordingly, these metrics provide retrospective held-out
+performance evidence, but not a strictly untouched, single-use
+estimate of generalization performance.
+
+At the selected threshold of 0.43, sensitivity was 75.48% and
+specificity was 43.36%, reflecting a substantial false-positive
+burden. The Brier score of 0.2188 also indicates limitations
+in the quality of the model's probability estimates.
 
 ---
 
@@ -356,9 +386,12 @@ A major design principle of this project is avoiding evaluation leakage in the r
 
 The project distinguishes between:
 
-### Independent test evidence
+### Patient-disjoint held-out test evidence
 
-Used for the selected optimized Random Forest.
+Used to evaluate the baseline models and subsequently the
+optimized Random Forest. Because baseline test results were
+available before the optimized evaluation, this was not a
+strictly single-use test partition.
 
 ### Patient-aware OOF evidence
 
@@ -671,7 +704,7 @@ demonstration. It is not a clinical decision-support system.
 | Executive Overview | Development-cohort KPIs and 30-day readmission outcome distribution |
 | Patient Demographics | Historical readmission patterns by age, gender, and race |
 | Healthcare Utilization | Admission types, length of stay, prior utilization, and data completeness |
-| Predictive Modeling | Optimized Random Forest performance on the independent held-out test partition |
+| Predictive Modeling | Optimized Random Forest performance on the patient-disjoint held-out test partition |
 | Model Evaluation | Patient-grouped HGB out-of-fold evaluation, calibration, bootstrap uncertainty, and subgroup robustness |
 
 ### Reporting Architecture
@@ -690,9 +723,10 @@ required to run the Streamlit dashboard.
 
 ### Model Evaluation Boundaries
 
-The Random Forest results come from an independent held-out test
-partition after configuration and threshold selection on development
-data.
+The Random Forest results come from a patient-disjoint held-out
+test partition after configuration and threshold selection on
+development data. That same partition had previously been used
+for baseline model evaluation.
 
 The Histogram Gradient Boosting results come from patient-grouped
 out-of-fold validation within the development cohort. The model
@@ -981,7 +1015,7 @@ It does not establish causal relationships.
 
 ### Generalization
 
-The independent held-out test evaluation applies to the selected optimized Random Forest.
+The optimized Random Forest was evaluated on a patient-disjoint held-out test partition. Because that partition had previously been used for baseline evaluation, the result is not a strictly untouched, single-use estimate of generalization.
 
 The later Histogram Gradient Boosting results are development-stage patient-aware validation results and should not be interpreted as an independent held-out generalization estimate.
 
@@ -989,12 +1023,55 @@ The later Histogram Gradient Boosting results are development-stage patient-awar
 
 Age-related performance heterogeneity represents an important limitation and warrants further investigation before any real-world deployment scenario.
 
+### Prediction timing
+
+The predictive models use encounter-level features that include information recorded during hospitalization or at discharge. Their reported performance therefore does not represent admission-time prediction. Any future operational application would require a clearly defined prediction time and verification that every input feature would be available at that point.
+
 ### Clinical use
 
 The model is a portfolio/research artifact and is **not a clinical decision-support system**.
 
 No clinical recommendation should be made from its predictions.
 
+### Test-set reuse
+
+The held-out test partition was patient-disjoint from development
+data, but it was evaluated more than once across the baseline
+and optimized Random Forest workflows.
+
+Baseline test results were available before the optimized model's
+test evaluation. This limits the strength of claims about
+independent generalization and should be considered when
+interpreting the reported performance.
+
+### Probability quality and operating trade-offs
+
+The optimized Random Forest achieved a Brier score of 0.2188,
+indicating substantial probability-prediction error.
+
+At its validation-selected threshold of 0.43, the model identified
+75.48% of recorded readmissions but achieved only 43.36%
+specificity, producing 7,668 false positives on the held-out
+test partition.
+
+These results do not establish that the model provides reliable
+individual clinical risk probabilities or is suitable for
+operational screening.
+
+### Data completeness and subgroup uncertainty
+
+In the development cohort, HbA1c results were not recorded for
+83.25% of encounters, and maximum serum glucose results were not
+recorded for 94.67%.
+
+"Not recorded" describes the information available in the dataset;
+it does not establish whether a particular laboratory test was
+never performed.
+
+Demographic subgroup rates also require cautious interpretation.
+For example, the youngest age group contains 135 encounters but
+only three recorded readmissions. Encounter-volume thresholds
+alone do not guarantee stable event-rate estimates.
 ---
 
 ## Key Takeaways
@@ -1009,7 +1086,7 @@ The major components are:
 - Feature engineering
 - Baseline modeling
 - Model optimization
-- Independent held-out testing
+- Patient-disjoint held-out testing
 - Patient-aware validation
 - Calibration analysis
 - Threshold optimization
@@ -1056,7 +1133,7 @@ This project uses the **Diabetes 130-US Hospitals for Years 1999–2008** datase
 
 The original dataset contains 101,766 historical hospital encounters. This project applies preprocessing, feature engineering, partitioning, statistical analysis, and modeling to the source data. The public descriptive dashboard reports aggregate findings from the 86,547-encounter development cohort.
 
-The dashboard also presents separately identified model-evaluation reports. Random Forest results originate from an independent held-out test partition, whereas Histogram Gradient Boosting results represent patient-grouped out-of-fold development validation.
+The dashboard also presents separately identified model-evaluation reports. Random Forest results originate from a patient-disjoint held-out test partition with documented prior baseline test use, whereas Histogram Gradient Boosting results represent patient-grouped out-of-fold development validation.
 
 This is an independent educational and professional portfolio project. The original dataset creators and UCI are credited; neither is represented as endorsing this analysis.
 

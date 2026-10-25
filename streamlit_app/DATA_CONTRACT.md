@@ -33,8 +33,9 @@ The descriptive dashboard represents the development cohort:
 
 These figures are encounter-level historical summaries.
 
-The independent test partition is excluded from the
-descriptive PostgreSQL reporting dataset.
+The patient-disjoint held-out test partition is excluded from the
+descriptive PostgreSQL reporting dataset. Its earlier use for baseline
+and optimized Random Forest evaluations is disclosed separately.
 
 ## Approved PostgreSQL Exports
 

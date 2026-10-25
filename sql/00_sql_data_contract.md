@@ -79,13 +79,15 @@ The held-out test partition must NOT be:
 - used to select models or hyperparameters;
 - used to develop model interpretations.
 
-This preserves the separation between development analytics and
-independent test evaluation. The Random Forest has a documented held-out
-test result; HGB results presented in this project come from patient-grouped
-out-of-fold validation and must not be described as an independent test.
+This keeps the patient-disjoint held-out test partition outside the
+SQL and BI development workflows. Notebook 05 evaluated baseline models
+on this partition before Notebook 06 evaluated the optimized Random Forest
+on the same partition. The Random Forest result is therefore not from a
+strictly untouched, single-use test set. HGB results come from patient-grouped
+out-of-fold development validation, not independent held-out testing.
 
-If the test partition is intentionally evaluated later, that evaluation must
-be explicitly documented as a separate project stage.
+Any future use of the held-out test partition must be explicitly documented.
+Reusing the partition cannot be represented as new independent confirmation.
 
 
 ## 6. Outcome Definition

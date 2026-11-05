@@ -1,6 +1,6 @@
 # Revised retrospective readmission study (v1.1)
 
-> **Advisor-review research summary, not peer reviewed or clinically validated.** The updated P0/P1/P2/P2B experiments were conducted outside the historical notebook/BI workflow. Their complete training-code reproduction bundle is **not yet publicly released** here.
+> **Research draft prepared for potential advisor review; not externally reviewed, peer reviewed or clinically validated.** The updated P0/P1/P2/P2B experiments were conducted outside the historical notebook/BI workflow. Their complete training-code reproduction bundle is **not yet publicly released** here.
 
 ## Objective and boundaries
 

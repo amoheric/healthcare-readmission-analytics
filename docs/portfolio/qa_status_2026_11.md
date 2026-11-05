@@ -37,7 +37,10 @@ The Power BI screenshot at `docs/screenshots/power_bi_dashboard.png` was replace
 - [ ] Check other intended cross-visual interactions, report refresh, and any model measures not covered by the screenshot-based review.
 - [x] Five deployed Streamlit pages rendered in user-provided browser screenshots (Executive Overview, Patient Demographics, Healthcare Utilization, Predictive Modeling, Model Evaluation); no visible application errors in captured states.
 - [x] User reports the tested Streamlit tabs and interactive selectors work. The five-page screenshot review and this user confirmation support basic functioning; exhaustive combinations and automated browser testing were not conducted.
-- [ ] Complete public small-cell disclosure review. Very small categories exist in published gender/admission summaries; suppressing a single category may allow reconstruction from totals.
+- [x] Define an [interpretive low-denominator display rule](small_cell_presentation_policy.md): omit subgroup rate estimates for n < 30 in Streamlit and flag remaining low-event groups.
+- [ ] Verify the new Streamlit branch code runs correctly after deployment; the user-confirmed interactive controls refer to the earlier deployed version.
+- [ ] Apply and verify the matching **Power BI Desktop visual-level filters** for gender/admission rates; recapture a clean screenshot. The PBIX and screenshot currently in the PR have **not** been updated for this rule.
+- [ ] Complete formal small-cell disclosure/linked-aggregate review if privacy suppression is required. The published aggregate CSVs still reveal small counts; the display rule is not privacy protection.
 - [ ] Confirm presentation labels keep **C0 BI (86,547 encounters, 9,677 events)** distinct from **C2 research modeling (84,471 encounters, 9,643 events)**.
 - [ ] Review/publicly release revised P1/P2/P2B research materials only after privacy and reproducibility checks.
 

@@ -107,6 +107,12 @@ control, anonymization certification, or HIPAA compliance.
 Final publication remains contingent on provenance,
 redistribution, and disclosure review.
 
+### Low-denominator rate display convention (November 2026)
+
+For **subgroup denominators below 30 encounters**, the draft Streamlit presentation omits the rate from comparative charts and tables while retaining the aggregate encounter/readmission counts for transparent reconciliation. The affected categories are Unknown/Invalid gender (n=1), Trauma Center admission (n=19), and Newborn admission (n=10). Other low-event-rate groups still receive general cautions.
+
+This cutoff is a communication rule, **not** formal disclosure control or proof of reliability for n ≥ 30. The published aggregate CSVs still reveal counts, and the original dataset is publicly available under CC BY 4.0. Complementary disclosure and source licensing require separate consideration. See [portfolio presentation policy](../docs/portfolio/small_cell_presentation_policy.md).
+
 ## Public Data Restrictions
 
 Do not publish the following as Streamlit application data:
@@ -136,7 +142,7 @@ Dataset provenance identified: Completed.
 SQL aggregate exports: Completed.
 CSV/JSON structural validation: Completed.
 Preliminary content-level privacy screening: Completed.
-Preliminary small-cell disclosure review: Completed; final publication assessment pending.
+Preliminary small-cell disclosure review: Presentation rule specified; formal disclosure assessment pending.
 Streamlit implementation: Completed; final QA pending.
 Source license and attribution verification: Verified against the
 official UCI Machine Learning Repository dataset record.

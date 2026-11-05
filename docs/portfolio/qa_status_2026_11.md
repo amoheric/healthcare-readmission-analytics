@@ -25,10 +25,13 @@ The database QA transaction was rolled back. Published aggregate exports reconci
 
 The published Power BI screenshot has been inspected for static KPI agreement; the PBIX itself has **not** been interactively verified in Power BI Desktop.
 
+The user supplied browser screenshots of all five Streamlit pages on November 4, 2026. All five page titles, expected chart/table sections, and model-evaluation cautions were visible. This is a **screen-capture review of rendered states**, not a live browser automation test. Patient Demographics shows the Age tab, Healthcare Utilization shows Admission Types, and Model Evaluation shows one selector state; alternate tabs and interactions were not verified.
+
 ## Open release gates
 
 - [ ] Verify Power BI refresh, slicers, charts and calculations in Desktop.
-- [ ] Open all five deployed Streamlit pages and test rendering/interactions.
+- [x] Five deployed Streamlit pages rendered in user-provided browser screenshots (Executive Overview, Patient Demographics, Healthcare Utilization, Predictive Modeling, Model Evaluation); no visible application errors in captured states.
+- [ ] Verify the remaining tab/dropdown interactions and repeat live checking at ordinary browser zoom; screenshots alone do not establish every interactive state works.
 - [ ] Complete public small-cell disclosure review. Very small categories exist in published gender/admission summaries; suppressing a single category may allow reconstruction from totals.
 - [ ] Confirm presentation labels keep **C0 BI (86,547 encounters, 9,677 events)** distinct from **C2 research modeling (84,471 encounters, 9,643 events)**.
 - [ ] Review/publicly release revised P1/P2/P2B research materials only after privacy and reproducibility checks.

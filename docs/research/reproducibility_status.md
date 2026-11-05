@@ -15,6 +15,6 @@
 
 **Never publish** raw or processed encounter-level rows, encounter/patient identifiers, fold-boundary NPZ files, individual out-of-fold predictions, credentials or private workspaces. Small aggregate cells also require disclosure review; publishing only aggregates is not automatically safe.
 
-The manuscript remains under author/advisor review; journal-readiness and ethics declarations are outstanding. Neither code nor dashboard represents clinical decision-support software.
+The manuscript remains an author-prepared draft for possible advisor review; external academic review has not been documented. Journal-readiness and ethics declarations are outstanding. Neither code nor dashboard represents clinical decision-support software.
 
 See [research results](revised_readmission_study_v1_1.md) and [portfolio QA](../portfolio/qa_status_2026_11.md).

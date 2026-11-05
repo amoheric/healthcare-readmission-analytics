@@ -27,11 +27,16 @@ The published Power BI screenshot has been inspected for static KPI agreement; t
 
 The user supplied browser screenshots of all five Streamlit pages on November 4, 2026. All five page titles, expected chart/table sections, and model-evaluation cautions were visible. This is a **screen-capture review of rendered states**, not a live browser automation test. Patient Demographics shows the Age tab, Healthcare Utilization shows Admission Types, and Model Evaluation shows one selector state; alternate tabs and interactions were not verified.
 
+### Updated portfolio image
+
+The Power BI screenshot at `docs/screenshots/power_bi_dashboard.png` was replaced on the draft pull-request branch with the user's current dashboard screenshot showing the corrected “Not Readmitted Within 30 Days” KPI. The file on `main` will change only if the pull request is merged. The screenshot still contains visibly small admission and gender categories and therefore does **not** close the disclosure-review item.
+
 ## Open release gates
 
-- [ ] Verify Power BI refresh, slicers, charts and calculations in Desktop.
+- [x] Power BI Desktop opened, main KPIs rendered, the age-group chart selected/highlighted successfully, and the outcome KPI label was corrected to “Not Readmitted Within 30 Days” (user-provided screenshots).
+- [ ] Check other intended cross-visual interactions, report refresh, and any model measures not covered by the screenshot-based review.
 - [x] Five deployed Streamlit pages rendered in user-provided browser screenshots (Executive Overview, Patient Demographics, Healthcare Utilization, Predictive Modeling, Model Evaluation); no visible application errors in captured states.
-- [ ] Verify the remaining tab/dropdown interactions and repeat live checking at ordinary browser zoom; screenshots alone do not establish every interactive state works.
+- [x] User reports the tested Streamlit tabs and interactive selectors work. The five-page screenshot review and this user confirmation support basic functioning; exhaustive combinations and automated browser testing were not conducted.
 - [ ] Complete public small-cell disclosure review. Very small categories exist in published gender/admission summaries; suppressing a single category may allow reconstruction from totals.
 - [ ] Confirm presentation labels keep **C0 BI (86,547 encounters, 9,677 events)** distinct from **C2 research modeling (84,471 encounters, 9,643 events)**.
 - [ ] Review/publicly release revised P1/P2/P2B research materials only after privacy and reproducibility checks.

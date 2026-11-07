@@ -1,0 +1,29 @@
+name: Streamlit low-volume display QA
+on:
+  pull_request:
+    paths:
+      - "streamlit_app/**"
+      - ".github/workflows/streamlit-low-volume-qa.yml"
+  push:
+    branches:
+      - "portfolio/research-v1-1-qa-20261104"
+    paths:
+      - "streamlit_app/**"
+      - ".github/workflows/streamlit-low-volume-qa.yml"
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+          cache-dependency-path: streamlit_app/requirements.txt
+      - name: Install dashboard dependencies
+        run: python -m pip install -r streamlit_app/requirements.txt
+      - name: Check subgroup display and render updated pages
+        run: python -m unittest discover -s streamlit_app/tests -v

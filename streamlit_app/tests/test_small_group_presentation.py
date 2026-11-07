@@ -89,5 +89,85 @@ class StreamlitPageSmokeTests(unittest.TestCase):
                 )
 
 
+class RenderedRateContentTests(unittest.TestCase):
+    """Verify the data actually passed to chart rendering and shown in tables.
+
+    AppTest does not expose stable first-class chart-data assertions. A spy
+    therefore captures Altair chart objects at st.altair_chart's display
+    boundary while Streamlit's own AppTest renders the real pages.
+    """
+
+    def run_page(self, name):
+        from unittest.mock import patch
+        import streamlit as st
+        from streamlit.testing.v1 import AppTest
+
+        charts = []
+        actual_render = st.altair_chart
+
+        def observe_chart(chart, *args, **kwargs):
+            charts.append(chart)
+            return actual_render(chart, *args, **kwargs)
+
+        with patch.object(st, "altair_chart", side_effect=observe_chart):
+            page = AppTest.from_file(str(APP / "pages" / name)).run(timeout=45)
+
+        self.assertFalse(
+            list(page.exception),
+            "Streamlit page exception: " + str([e.message for e in page.exception]),
+        )
+        return page, charts
+
+    def assert_chart_encoding(self, chart):
+        # This assertion fails if the chart accidentally switches to the
+        # original, unmasked readmission_rate_pct column.
+        spec = chart.to_dict()
+        self.assertEqual(spec["encoding"]["x"]["field"], "display_rate_pct")
+
+    def test_gender_displayed_chart_and_table_exclude_small_rate(self):
+        page, charts = self.run_page("1_Patient_Demographics.py")
+        # All three tabs execute: age, gender, race.
+        self.assertEqual(len(charts), 3)
+        gender_chart = charts[1]
+        self.assert_chart_encoding(gender_chart)
+        self.assertEqual(set(gender_chart.data["gender"]), {"Female", "Male"})
+        self.assertFalse(gender_chart.data["display_rate_pct"].isna().any())
+
+        # The public table keeps the source count for reconciliation but
+        # must not publish an unreliable rate for the n=1 category.
+        displayed_gender = page.dataframe[1].value
+        self.assertEqual(len(displayed_gender), 3)
+        small = displayed_gender.loc[
+            displayed_gender["Category"] == "Unknown/Invalid"
+        ].iloc[0]
+        self.assertEqual(int(small["Encounters"]), 1)
+        self.assertTrue(pd.isna(small["Rate (%)"]))
+        self.assertEqual(small["Caution"], "Rate not displayed (n < 30)")
+
+    def test_admission_displayed_chart_and_table_exclude_small_rates(self):
+        page, charts = self.run_page("2_Healthcare_Utilization.py")
+        # Admission tab's bar chart is the first chart in the page.
+        self.assertGreaterEqual(len(charts), 1)
+        admission_chart = charts[0]
+        self.assert_chart_encoding(admission_chart)
+        self.assertEqual(len(admission_chart.data), 6)
+        categories = set(admission_chart.data["admission_type_description"])
+        self.assertNotIn("Trauma Center", categories)
+        self.assertNotIn("Newborn", categories)
+        self.assertFalse(admission_chart.data["display_rate_pct"].isna().any())
+
+        displayed_admissions = page.dataframe[0].value
+        self.assertEqual(len(displayed_admissions), 8)
+        for category, count in (("Trauma Center", 19), ("Newborn", 10)):
+            small = displayed_admissions.loc[
+                displayed_admissions["Admission Type"] == category
+            ].iloc[0]
+            self.assertEqual(int(small["Encounters"]), count)
+            self.assertTrue(pd.isna(small["Rate (%)"]))
+            self.assertEqual(
+                small["Interpretation"], "Rate not displayed (n < 30)"
+            )
+
+
 if __name__ == "__main__":
     unittest.main()

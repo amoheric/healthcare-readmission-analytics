@@ -12,6 +12,20 @@ The project combines data auditing, preprocessing, exploratory analysis, feature
 
 ---
 
+### Latest research and portfolio checks (November 2026)
+
+The public notebook/SQL/BI work remains available. The **revised retrospective research v1.1** and recent QA are documented separately:
+
+- [One-minute employer portfolio walkthrough](docs/portfolio/project_walkthrough.md)
+- [Patient-grouped research v1.1 findings and limitations](docs/research/revised_readmission_study_v1_1.md)
+- [Research reproducibility and release status](docs/research/reproducibility_status.md)
+- [SQL, Power BI and Streamlit QA status](docs/portfolio/qa_status_2026_11.md)
+- [Small-category interpretation and release policy](docs/portfolio/small_cell_presentation_policy.md)
+
+**Cohort/protocol boundary:** descriptive SQL/BI uses **C0 development (86,547 encounters; 9,677 recorded <30 readmissions)**, while revised internal model evaluation uses **C2 development (84,471 encounters; 9,643 events)**. Historical notebook model metrics are not directly comparable to revised P1 results. The manuscript is a draft prepared for possible advisor review; no external academic review is documented. The complete revised research-code release and interactive dashboard sign-off remain pending.
+
+---
+
 ## Portfolio Showcase
 
 **Python | SQL | PostgreSQL | Machine Learning | Power BI | Streamlit**

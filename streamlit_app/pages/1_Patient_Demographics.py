@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 
 from utils.data_loader import load_sql_export
+from utils.small_group_presentation import add_display_rate_columns
 
 
 st.set_page_config(
@@ -45,6 +46,8 @@ def prepare_demographics(dataset_name, category_column):
         df["readmission_rate_pct"], errors="raise"
     )
 
+    df = add_display_rate_columns(df)
+
     df["presentation_caution"] = (
         (df["total_encounters"] < 100)
         | (df["readmitted_30d_encounters"] < 20)
@@ -63,11 +66,11 @@ def show_demographic_analysis(
     st.subheader(title)
 
     chart = (
-        alt.Chart(dataframe)
+        alt.Chart(dataframe.loc[dataframe["rate_displayable"]])
         .mark_bar()
         .encode(
             x=alt.X(
-                "readmission_rate_pct:Q",
+                "display_rate_pct:Q",
                 title="Observed 30-day readmission rate (%)",
                 scale=alt.Scale(domainMin=0),
             ),
@@ -92,7 +95,7 @@ def show_demographic_analysis(
                     format=",",
                 ),
                 alt.Tooltip(
-                    "readmission_rate_pct:Q",
+                    "display_rate_pct:Q",
                     title="Observed rate (%)",
                     format=".2f",
                 ),
@@ -117,6 +120,12 @@ def show_demographic_analysis(
     display["presentation_caution"] = display[
         "presentation_caution"
     ].map({True: "Review small group", False: ""})
+
+    # n < 30: no subgroup percentage in the public-facing table.
+    display["readmission_rate_pct"] = dataframe["display_rate_pct"]
+    display.loc[
+        ~dataframe["rate_displayable"], "presentation_caution"
+    ] = "Rate not displayed (n < 30)"
 
     display = display.rename(
         columns={
@@ -154,6 +163,14 @@ def show_demographic_analysis(
             ),
         },
     )
+
+    if not dataframe["rate_displayable"].all():
+        st.warning(
+            "Rates for categories with fewer than 30 encounters are not "
+            "displayed in the chart or table. Aggregate category counts "
+            "remain available for source reconciliation; this is not "
+            "privacy suppression or an anonymity guarantee."
+        )
 
     if dataframe["presentation_caution"].any():
         st.warning(

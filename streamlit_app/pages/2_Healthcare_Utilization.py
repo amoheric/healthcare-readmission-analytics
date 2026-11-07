@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 
 from utils.data_loader import load_sql_export
+from utils.small_group_presentation import add_display_rate_columns
 
 
 st.set_page_config(
@@ -31,8 +32,8 @@ st.info(
 # ---------------------------------------------------------------
 
 try:
-    admissions = load_sql_export(
-        "readmission_by_admission_type"
+    admissions = add_display_rate_columns(
+        load_sql_export("readmission_by_admission_type")
     )
 
     length_of_stay = load_sql_export(
@@ -76,15 +77,16 @@ with admission_tab:
 
     st.caption(
         "Admission categories reflect the historical source data. "
-        "Low-volume categories require careful interpretation."
+        "Rates for categories with fewer than 30 encounters are not "
+        "displayed in the chart or table."
     )
 
     admission_chart = (
-        alt.Chart(admissions)
+        alt.Chart(admissions.loc[admissions["rate_displayable"]])
         .mark_bar()
         .encode(
             x=alt.X(
-                "readmission_rate_pct:Q",
+                "display_rate_pct:Q",
                 title="Observed 30-day readmission rate (%)",
                 scale=alt.Scale(domainMin=0),
             ),
@@ -109,7 +111,7 @@ with admission_tab:
                     format=",",
                 ),
                 alt.Tooltip(
-                    "readmission_rate_pct:Q",
+                    "display_rate_pct:Q",
                     title="Readmission rate (%)",
                     format=".2f",
                 ),
@@ -120,12 +122,23 @@ with admission_tab:
 
     st.altair_chart(admission_chart, width="stretch")
 
-    admission_display = admissions.rename(
+    admission_display = admissions[
+        [
+            "admission_type_description",
+            "total_encounters",
+            "readmitted_30d_encounters",
+            "display_rate_pct",
+        ]
+    ].copy()
+    admission_display["Interpretation"] = admissions["rate_displayable"].map(
+        {True: "", False: "Rate not displayed (n < 30)"}
+    )
+    admission_display = admission_display.rename(
         columns={
             "admission_type_description": "Admission Type",
             "total_encounters": "Encounters",
             "readmitted_30d_encounters": "Readmissions",
-            "readmission_rate_pct": "Rate (%)",
+            "display_rate_pct": "Rate (%)",
         }
     )
 
@@ -139,6 +152,15 @@ with admission_tab:
         (admissions["total_encounters"] < 100)
         | (admissions["readmitted_30d_encounters"] < 20)
     ]
+
+    if not admissions["rate_displayable"].all():
+        st.warning(
+            "Subgroup percentages for admission categories with fewer "
+            "than 30 encounters are omitted from public-facing charts "
+            "and tables. Counts remain in aggregate exports and can be "
+            "reconstructed from totals; this is an interpretive "
+            "presentation rule, not privacy disclosure control."
+        )
 
     if not small_admission_groups.empty:
         st.warning(

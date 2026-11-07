@@ -29,7 +29,7 @@ The user supplied browser screenshots of all five Streamlit pages on November 4,
 
 ### Updated portfolio image
 
-The Power BI screenshot at `docs/screenshots/power_bi_dashboard.png` was updated again on the draft branch using the user's final clean capture. The screenshot now has the corrected “Not Readmitted Within 30 Days” label, two gender bars (Female, Male), six admission-type bars and a notice excluding subgroups with fewer than 30 encounters from displayed rates. The source aggregate CSVs are unchanged and continue to expose original small counts. The PBIX file is still the prior binary until the revised file is supplied; `main` is unchanged.
+The Power BI screenshot at `docs/screenshots/power_bi_dashboard.png` was updated again on the draft branch using the user's final clean capture. The screenshot now has the corrected “Not Readmitted Within 30 Days” label, two gender bars (Female, Male), six admission-type bars and a notice excluding subgroups with fewer than 30 encounters from displayed rates. The source aggregate CSVs are unchanged and continue to expose original small counts. The PBIX file has now been replaced on the draft branch using the author's final Power BI Desktop save; `main` remains unchanged until PR #2 is merged.
 
 ## Open release gates
 
@@ -40,7 +40,7 @@ The Power BI screenshot at `docs/screenshots/power_bi_dashboard.png` was updated
 - [x] Define an [interpretive low-denominator display rule](small_cell_presentation_policy.md): omit subgroup rate estimates for n < 30 in Streamlit and flag remaining low-event groups.
 - [ ] Verify the new Streamlit branch code runs correctly after deployment; the user-confirmed interactive controls refer to the earlier deployed version.
 - [x] User supplied a clean Power BI screenshot confirming gender/admission visual filtering, the corrected KPI wording, and unchanged 86,547 / 9,677 / 11.18% totals. The screenshot has been updated on this draft branch.
-- [ ] Save and provide the corresponding updated **Power BI PBIX** so that the actual downloadable report matches its screenshot; the PBIX has not yet been updated in this pull request.
+- [x] The author supplied the updated Power BI Desktop PBIX. The new binary was checked as a valid Power BI ZIP/PBIR package, with the corrected KPI label, both visual-only `total_encounters >= 30` filters, and the explanatory note present. The updated PBIX now replaces `dashboard/healthcare_readmission_dashboard.pbix` on this draft branch. Further Power BI Desktop refresh tests have not been automated.
 - [ ] Complete formal small-cell disclosure/linked-aggregate review if privacy suppression is required. The published aggregate CSVs still reveal small counts; the display rule is not privacy protection.
 - [ ] Confirm presentation labels keep **C0 BI (86,547 encounters, 9,677 events)** distinct from **C2 research modeling (84,471 encounters, 9,643 events)**.
 - [ ] Review/publicly release revised P1/P2/P2B research materials only after privacy and reproducibility checks.

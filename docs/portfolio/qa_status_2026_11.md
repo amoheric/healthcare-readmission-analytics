@@ -31,6 +31,10 @@ The user supplied browser screenshots of all five Streamlit pages on November 4,
 
 The Power BI screenshot at `docs/screenshots/power_bi_dashboard.png` was updated again on the draft branch using the user's final clean capture. The screenshot now has the corrected “Not Readmitted Within 30 Days” label, two gender bars (Female, Male), six admission-type bars and a notice excluding subgroups with fewer than 30 encounters from displayed rates. The source aggregate CSVs are unchanged and continue to expose original small counts. The PBIX file has now been replaced on the draft branch using the author's final Power BI Desktop save; `main` remains unchanged until PR #2 is merged.
 
+### New Streamlit branch verification (November 6, 2026 ET)
+
+GitHub Actions run [42317343313](https://github.com/amoheric/healthcare-readmission-analytics/actions/runs/42317343313) completed successfully: **6 of 6 tests passed** on Python 3.13 using the dashboard's pinned dependency set. The tests checked the n < 30 boundary (including n=29/30), the real published gender/admission aggregates, input immutability, input rejection, Python syntax, and Streamlit AppTest rendering of the **two changed pages** with no captured exceptions. This supports branch-code readiness. The other three pages were not rerun by these tests, though earlier user screenshots confirmed they displayed in the deployed version. No formal disclosure certification is inferred.
+
 ## Open release gates
 
 - [x] Power BI Desktop opened, main KPIs rendered, the age-group chart selected/highlighted successfully, and the outcome KPI label was corrected to “Not Readmitted Within 30 Days” (user-provided screenshots).
@@ -38,7 +42,8 @@ The Power BI screenshot at `docs/screenshots/power_bi_dashboard.png` was updated
 - [x] Five deployed Streamlit pages rendered in user-provided browser screenshots (Executive Overview, Patient Demographics, Healthcare Utilization, Predictive Modeling, Model Evaluation); no visible application errors in captured states.
 - [x] User reports the tested Streamlit tabs and interactive selectors work. The five-page screenshot review and this user confirmation support basic functioning; exhaustive combinations and automated browser testing were not conducted.
 - [x] Define an [interpretive low-denominator display rule](small_cell_presentation_policy.md): omit subgroup rate estimates for n < 30 in Streamlit and flag remaining low-event groups.
-- [ ] Verify the new Streamlit branch code runs correctly after deployment; the user-confirmed interactive controls refer to the earlier deployed version.
+- [x] Revised Streamlit Demographics and Healthcare Utilization code passed six focused automated tests on GitHub Actions, including rendering both changed pages with Streamlit AppTest and comparing the published gender/admission aggregates (see [successful CI run](https://github.com/amoheric/healthcare-readmission-analytics/actions/runs/42317343313)).
+- [ ] After merge and deployment, confirm the live Streamlit Gender and Admission Type views display the new omission notes and exclude low-volume rates; GitHub CI tested the branch build, not the deployed production URL.
 - [x] User supplied a clean Power BI screenshot confirming gender/admission visual filtering, the corrected KPI wording, and unchanged 86,547 / 9,677 / 11.18% totals. The screenshot has been updated on this draft branch.
 - [x] The author supplied the updated Power BI Desktop PBIX. The new binary was checked as a valid Power BI ZIP/PBIR package, with the corrected KPI label, both visual-only `total_encounters >= 30` filters, and the explanatory note present. The updated PBIX now replaces `dashboard/healthcare_readmission_dashboard.pbix` on this draft branch. Further Power BI Desktop refresh tests have not been automated.
 - [ ] Complete formal small-cell disclosure/linked-aggregate review if privacy suppression is required. The published aggregate CSVs still reveal small counts; the display rule is not privacy protection.
